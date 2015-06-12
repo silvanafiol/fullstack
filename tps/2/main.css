@@ -1,0 +1,12 @@
+body {
+	font-size: 20px;
+}
+
+.Div1 {
+/* esto funciona porque ademas de margin tengo seteado el width*/
+	margin:0 auto;
+	width: 20em;
+	height: 10em;
+	background-color: blue;
+}
+
