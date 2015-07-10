@@ -1,0 +1,93 @@
+*{
+	box-sizing:border-box;
+}
+
+body{
+	margin: 60px 0 0;
+}
+
+#content {
+border: 2px solid black;
+padding:5px;
+width:50px;
+;
+
+}
+
+div {
+	display: block;	
+}
+
+.position-relative-ex{
+	position:relative;
+	top: 10px;
+}
+
+.position-absolute-ex{
+	position:relative;
+	background-color: red;
+	height: 40px;
+	width: 40px;
+}
+
+.position-absolute-ex > div{ /*de los position absolute ex, los hijos inmediatos y directos que sean div, van a tener esta propiedad*/
+	position: absolute;
+	background-color: green;
+	height:40px; 
+	width:40px;
+}
+
+.position-fixed{
+	top: 0;
+	position: fixed;
+	height: 60px;
+}
+
+.float-ex{
+/*	height: 80px;*/
+}
+
+.float-left{
+	float: left;
+	height: 40px;
+	width:40px; 
+	background-color: red;
+}
+
+.float-right{
+	float: right;
+	height: 40px;
+	background-color: green;
+	width:40px; 
+}
+
+.br{
+	clear: both;
+}
+
+.clearfix{
+	overflow: auto;
+	zoom:1;
+}
+
+.display-inline-ex li{
+	display: inline-block;
+}
+
+.flexbox-ex{
+	display: -webkit-flex; /*hay navegadores que no soportan flex , entonces usan la que esta puesta con prefijo, que es el motor de la renderizacion de lo que anteriormente era microsoft, o chrome, u otros...
+	para chome se pone -webkit, para microsoft se pone -ms-flex por ejemplo, para mozila no me acuerdo...*/
+	display:flex;
+	-webkit-align-items:center;
+	align-items:center;
+	height: 100px;
+	border:1px solid black;
+	-webkit-justify-content:center;
+	justify-content:center;
+}
+
+.flexbox-ex div{
+	background-color: red;
+	/*height: 40px;*/
+	width: 40px;
+}

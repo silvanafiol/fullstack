@@ -78,9 +78,19 @@ nav {
 ul {
 	height: 250px;
 	background-color: white;
-	list-style: inside;
+	/*list-style: inside;*/
+	list-style: none;
     text-align: center;
     margin-top: 0px;
+    padding-left: 5px;
+}
+
+ul li:after{
+content:"•"; 
+color:green;
+padding-left:10px; 
+right:0em; 
+
 }
 
 
