@@ -16,7 +16,7 @@
  	i++;
  };
 
-if (numeroIngresado > 0) {
+if (cantMayores > 0) {
 	console.log("la cantidad de números mayores a " + numeroIngresado + " es " + cantMayores);
 }
 else {
