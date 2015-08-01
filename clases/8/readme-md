@@ -1,0 +1,193 @@
+node
+
+npm es el manejador de paquetes para node, 
+require se usa para utilizar modulos es una palabra reservada
+
+var mod1 = require('mimodulo');
+
+mimodulo puede estar en npm o ser propio de node, fs es un modulo y esta en node viene con node, pero si no vieniese con node deberia hacer
+npm install mimodulo
+y me lo instala donde estoy parado y entonces donde tengo los js ahi tengo que instalar mi modulo
+
+unicamente tengo que instar modulos globales, si son herramientas de consola eso se hace con npm install mimodulo -g
+pero eso x buenas practicas hay que hacerlo solo con herramientas de consola
+
+las instalaciones locales son para modulos que voy a utilizar en mi codigo . las instalaciones globales son para 
+
+hay muchos modulos incluidos en node, que nos permiten hacer
+un soperativo esta compuesto por muchas cosas, una de esas cosas es el file system que nos brinda todos los datos de fechsas,tamaños, modificaciones, abrir y leer archivos..
+
+node no esta abriendo archivos por su cuenta, en medio hay un interfaz q el sop nos brinda para abrir archivos
+
+var fs = require('fs')
+
+require es una palabra reservada en node, que nos sirve para utilizar modulos, ahora si es un modulo que viene con node puedo hacer esto sin otra cosa previa, pero si no es un modulo que viene con node, va a fallar porque no esta instalado y entonces no esta, pero tnedriamos que hacer require npm install express por ej, y en que directorio: en el directorio donde quiero trabajar con ese archivo
+
+
+eventos es una representacion de algo abstracto y nos sirve para manejar eventos
+
+http lo vamos a ver despues
+
+net sirve para interactuar con la red a nivel mas bajo que http
+
+od es sistema operativo
+
+timers tenemos lo que vimos la clase anterior que es set interval y set timer
+
+process es un global que lo vamos a ver
+
+si quiero saber que metodos tiene algo, voy a documentacion y lo leo
+
+por rj 
+fs.readFile('textfile.txt',function(){console.log('termino');});
+//setTimeout(function(){console.log('setTimeout');},5000);
+console.log('hola');
+
+se va a ejecutar pirmero console log porque habiamos dicho que settimeout es asincronico y no lockea... entonces luego le tengo que pasar algo para avisarle que eso se tiene que realizar
+todo lo que sea entrada salida , algo que no dependa de mi, no leer un array pero por ej leer el filesystem, imprimir, etc, va a ser asincronico y me va a tener que avissar que termino
+
+siempre va a haber una unica cosa que se ejecuta en paralelo, por lo tanto, ...
+
+que pasa si pongo un for infinito abajo del consolo log hola... nunca va a llegar a imprimir el console log de dentro de la fx del readfile, que es el resultado de la respuesta de la entrada salida, porque como ejecuta una sola cosa por vez y es un loop infinito, nunca puede atender lo asincronico que termino
+
+si vamos a meter algo pesado y lockeante, no lo tengo que hacer en mi programa, lo tengo que hacer fuera, en otra instancia porque aca me va a parar todo el resto de mi programa
+
+aca cuando yo pido que haga readfile, cuando termina me va a ejecutar lo que yo le pasé como segundo parametro, que es una fx, y que sirve para avisarme que el readfile termino.
+
+es decir que la function(){console.log......} es un param2 que se podria haber definido arriba
+
+otra cosa es que me pueda decir si hubo un error o no, por eso la convención es que el primer parametro que voy a recibir en la fx representa un error y el segundo representa en resultado.
+
+fs.readFile('textfile.txt',function(paranError, resultado){console.log('termino');
+console.log('error:',err);
+console.log('resutlado:',resultado);
+});
+
+
+nos devolvio 
+termino
+hola 
+error : null
+ y resultado  dice buffer 349486848838383 que es la representacion hexadecimal de unos caracteres.....
+
+cuando estoy retornando algo vacio debo retornal null y tener cuidado de no retornar undefined
+
+otra cosa es que aca el resultado fue buffer y no un string como queríamos, eso pasó porque 
+
+ahora nos devolvio
+fs.readFile('textfile.txt',function(paranError, resultado){console.log('termino');
+console.log('error:',err);
+console.log('resutlado:',toString(resultado);
+});
+
+
+otra opcion es 
+fs.readFile('textfile.txt','utf8',function(paranError,  resultado){console.log('termino');
+console.log('error:',err);
+console.log('resutlado:',resultado);
+});
+
+
+y nos devuelve error null y resultado some simpre text file
+
+lo que me hace es que me devuelve que me abre una concola, con um prompt y me permite ingresar cosas y me devuleve resultados como en la consola del browser
+
+entonces, console.log además de vivir en el browser vive en el node
+
+muchas cosas sirven en ambos y otras no
+
+tenemos cosas globales que son alguos modulos que estan representados por variables globales y otros que no y a los que no los tenemos que referir
+
+por ejemplo process esta representado por variables globales y si pongo process me dice datos de mi proceso
+entre los datos que me da estan exit y kill que me sirven cuando quiero matarlo o salir del proceso
+
+cuando prendemos windows windows nos da una serie de procesos, muchos son propios del sistema operativo y otros son particulares de la instalacion que tenemos nosotros en el inicio de la sesion
+un proceso es un programa en ejecución, que está en memoria y cada proceso tiene un identificador, el proceso corre desde la memoria y no desde el disco rígido, ese pasaje a memoria es el que tiene el identificador y todas las variables y todo estan referido al identificador del proceso
+
+process.pid nos da el identificador, y ese pid es del soperativo o es de node???
+pero si yo mato el pid que me devolvió, por ej 19444
+
+
+para moverme de directorios es cd..
+el directorio lo veo con dir
+
+para ejecutar un proceso pongo node programa.js
+
+node es un intérprete que lo interpreta y lo corre, 
+
+si pongo otro fs.readfile inmediatamente despues del anterior, como son no bloqueantes, se llama uno despues del otro y ejecuta primero la respuesta del primero que termine... 
+
+si quiero condicionar uno al otro tengo que poner el segundo fs, dentro del primer fs, abjao de los console log del primer err y resultado del primero
+
+que pasa si quiero abrir dos archivos en paralelos y quiero ejecutar algo cuando solo cuando terminaron los dos, debería tener en cuenta los avisos de los readfile
+
+exsite el comando fs.readFileSync que nos hace una lectura de archivo en forma sincronica, no es muy util y es conceptualmente malo pero puede haber algunas condiciones en las que necesito hacer esto tipo cdo leo un archivo de configuracion, por ej
+
+parametros:
+cuando paso parametros a mi llamada de ejecucion es nombre de programa espacio param1 param2 param3
+todo con espacios, si un parametro tiene espacios lo paso "papa papa"
+
+y eso es un solo parametro
+
+por ejemplo nano params.js param2 param3...
+
+el comando nano, va a ejecutar params.js recibiendo los parametros que tiene especificado y no va a dar bola al resto de los parametros
+
+siempre que ejecute el comando node, el parametro que sigue, para node es una referencia a un archivo, pero a partir de ahi, todos los parametros los toma como un string
+
+node params.js p1 p2 p3
+
+la consola entiende todo eso como strings
+
+-----------------------------------------------------------
+
+para el ejercicio, tema aparte, esto nos permite resolverlo
+
+tengo un for y dentro del for un asicronico como por ej el setTimeout, setTimeout devuelve un id , puedo hacer clear timeout de ese id y no me lo muestra mas
+
+for (i=0;i<10;i++){
+	setTimeout(function(){
+		console.log(i);
+	},0);
+}
+
+la rta del codigo asincronico solo será recibida por mi proceso recien despues de haber TERMINADO de ejecutar TODO el codigo sincronico, por eso esto me devuelve 10 veces 10... porque el llamado a la fx set time out se esta haciendo en cada vuelta del for, pero la fx del timeout (que imprime en consola ), que es asincrónica, recien analiza las 10 devoluciones del setTimeout a partir de que termina todo lo sincronico que es el for
+
+y ojo, también queda el proceso corriendo hasta que termine el último asincrónico de devolverme su resultado... aunque sea dentro de mil años
+
+este tipo de fx son fx que guardan los valores de todas las variables y fx de su entorno en el momento que se crearon, ojo, o en el momento que se ejecutaron pero sí, en el momento que se crearon.
+
+una cosa que puedo hacer es usar una variable inicializada afuera y solo incrementada y usada dentro de la fx, entonces desacoplo mi variable contador de la i del for, y ese contador solo lo incremento cdo se esta ejecutando mi fx, y hago console.log de mi contador en lugar de mostrar i, entonces no me muestra 10 veces 10 sino que muestra 12345678910
+
+Math.floor(Math.random() * (max - min)) + min  con esto creo nros aleatorios entre un max y un min, esto lo meto dentro de una fx getRandomint... entonces no se puede ver pero cdo ejecuta mi fx se guarda el valor de getRandomint
+
+
+for (i=0;i<10;i++){
+	setTimeout(function(){
+		console.log(contador);
+		contador ++;
+	},getRandomint(1000,4000));
+}
+
+--------------------------------------------
+
+
+------------------------
+otro tena, para recorrer arrays, con for toma los vacios, pero foreach no
+con join("/n") los muestro separados por comas o en este caso por enters
+
+
+la fuerza del javascript radica en lo asincónico y en clossure, que es esto de que una fx llame a otra y se acuerde del valor de las variables en el momento en que se invocó, no en el momento que se ejecuto
+-------------------------------------
+
+manejo de directorios con fs.readdir devuelve un array de los archivos del directorio y uno por uno ejecutar fs.stat  que devuelve un objeto tipo stat y tiene la propiedad stats.isDirectory() y si es acumularlo y cuando no haya mas directorios
+y devolverlo
+
+--------------------------------------------------------
+
+cuando tengo mas de una fx anidada asincronicas, donde tengo que poner mi codigo de resolucion del problema, debe estar dentro de la funcion mas asincronica de todas, es decir dentro del stat
+
+fs.stat("box-model",function onDone(err,stat){console.log(stat.isDirectory)));});
+
+devuelve true o false... si devuelve true estos son los que tenemos que guardar y luego mostrart
+
